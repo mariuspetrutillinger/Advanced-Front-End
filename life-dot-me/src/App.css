@@ -1,0 +1,26 @@
+:root {
+    --primaryBlue: #0093FF;
+    --primaryBlueDark: #0066B1;
+    --primaryDarkGrey: #1C1C1C;
+}
+
+@font-face {
+    font-family: primaryFont;
+    src: url("./assets/Signika-VariableFont_GRAD,wght.ttf");
+}
+
+.general-button {
+    background-color: var(--primaryBlue);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: primaryFont, sans-serif;
+    cursor: pointer;
+}
+
+.general-button:hover {
+    background-color: var(--primaryBlueDark);
+}
