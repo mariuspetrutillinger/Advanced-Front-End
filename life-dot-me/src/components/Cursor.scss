@@ -1,0 +1,19 @@
+.custom-cursor {
+    position: fixed;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid white;
+    background-color: transparent;
+    box-shadow: 0 0 10px white;
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+    pointer-events: none;
+}
+
+.hovering {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    cursor: none;
+}

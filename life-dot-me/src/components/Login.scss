@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
 
     @media (min-width: 1000px) {
         width: 22vw;
@@ -65,5 +66,16 @@
     }
 }
 
+.login div {
+    color: white;
+    margin-top: 0,4rem;
+    font-size: small;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-wrap: nowrap;
 
- 
+    input {
+        box-shadow: none;
+    }
+}

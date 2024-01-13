@@ -9,6 +9,11 @@
     src: url("./assets/Signika-VariableFont_GRAD,wght.ttf");
 }
 
+* {
+    font-family: primaryFont, sans-serif;
+    cursor: none;
+}
+
 .general-button {
     background-color: var(--primaryBlue);
     color: white;
@@ -18,7 +23,6 @@
     font-size: 1rem;
     font-weight: 300;
     font-family: primaryFont, sans-serif;
-    cursor: pointer;
 }
 
 .general-button:hover {
