@@ -25,15 +25,19 @@ export function Login() {
         
         try {
             setLoading(true);
-            setPersistence(auth, isRemembered ? browserLocalPersistence : browserSessionPersistence)
-                .then(() => {
-                    signInWithEmailAndPassword(auth, email, password)
-                        .then(() => {
-                            navigate("/main");
-                        });
-                });
+            await setPersistence(auth, isRemembered ? browserLocalPersistence : browserSessionPersistence);
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            localStorage.setItem("isAllowed", "true");
+            const authenticatedUser = userCredentials.user;
+
+            if (authenticatedUser) {
+                localStorage.setItem("uid", authenticatedUser.uid);
+                navigate("/main");
+            }
+
         } catch (error) {
             setLoading(false);
+            alert("Username or password is incorrect. Try again.")
             console.log(new AuthErrorHandler(error)._errorMessage);
         }
         
@@ -43,6 +47,8 @@ export function Login() {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
                 setLoggedIn(true);
+                localStorage.setItem("isAllowed", "true");
+                localStorage.setItem("uid", user.uid);
                 setTimeout(() => {
                     navigate("/main");
                 }, 2000);
@@ -83,7 +89,7 @@ export function Login() {
                             onChange={handleRemember}
                         />
                     </div>
-                    <button className="general-button" 
+                    <button className="general-button cursor-none" 
                         type="submit">
                             {loading ? "Loading..." : "Login"}
                     </button>

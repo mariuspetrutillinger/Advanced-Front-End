@@ -13,10 +13,13 @@ const firebaseConfig = {
   storageBucket: "lifedotme-28a11.appspot.com",
   messagingSenderId: "1087730355821",
   appId: "1:1087730355821:web:5e3f44e95293673bd1f964",
-  measurementId: "G-82S9J5Z7PJ"
+  measurementId: "G-82S9J5Z7PJ",
+  databaseURL: "https://lifedotme-28a11-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const analytics = getAnalytics(app);
+
+export { firebaseConfig, app };

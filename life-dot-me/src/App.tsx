@@ -7,6 +7,9 @@ import Main from './pages/Main.tsx';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
 import Cursor from './components/Cursor.tsx';
+import Profile from './pages/Profile.tsx';
+import NotSignedIn from './components/NotSIgnedIn.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
 
 function App() {
   return (
@@ -15,9 +18,19 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='not-allowed' element={<NotSignedIn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/main" element={
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
+          }/>
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Router>
     </div>

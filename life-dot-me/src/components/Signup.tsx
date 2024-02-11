@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 import CredentialsError from "../errors/CredentialsError.tsx";
 import AuthErrorHandler from "../errors/AuthErrorHandler.tsx";
+import { AddNewUser } from "../backend/FirebaseDatabase.ts";
 
 export function Signup() {
     const auth = getAuth();
@@ -17,22 +18,31 @@ export function Signup() {
 
     const handleSignup = async(e) => {
         e.preventDefault();
+        auth.signOut();
+        localStorage.setItem("isAllowed", "false");
 
         try {
             if (password === confirmPassword) {
                 setLoading(true);
-                await createUserWithEmailAndPassword(auth, email, password)
-                    .then(() => {
-                        navigate("/login");
-                    });
+                const newUserCredentials = await createUserWithEmailAndPassword(auth, email, password)
+                const newUser = newUserCredentials.user;
+
+                if (newUser) {
+                    console.log(newUser);
+                    await AddNewUser(newUser.uid, email, password);
+
+                }
+
+                setTimeout(() => {
+                    setLoading(false);
+                    navigate("/login");
+                }, 2000);
             }
             else {
                 throw new CredentialsError("Passwords do not match");
             }
         } catch (error) {
             setLoading(false);
-            console.log(error.code);
-            console.log(error.message);
 
             if (error instanceof CredentialsError) {
                 alert(error.message);
@@ -66,7 +76,7 @@ export function Signup() {
                     onChange={(e) => setConfirm(e.target.value)} 
                     placeholder="Confirm Password" 
                 />
-                <button className="general-button" 
+                <button className="general-button cursor-none" 
                     type="submit">
                         {loading ? "Signing in..." : "Sign up"}
                 </button>
